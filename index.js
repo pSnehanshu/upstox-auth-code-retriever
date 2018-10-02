@@ -12,10 +12,13 @@ const worker = async ({
     redir_url,
 }) => {
     console.log('Worker starting...')
-    
-    var login_url = `https://api.upstox.com/index/dialog/authorize?apiKey=${encodeURIComponent(api_key)}&redirect_uri=${encodeURIComponent(redir_url)}&response_type=code`
 
-	const browser = await puppeteer.launch({ headless: true, timeout:0, args: ['--no-sandbox', '--disable-setuid-sandbox'] })
+    var api_key = encodeURIComponent(api_key)
+    var redir_url = encodeURIComponent(redir_url)
+    
+    var login_url = `https://api.upstox.com/index/dialog/authorize?apiKey=${api_key}&redirect_uri=${redir_url}&response_type=code`
+
+	const browser = await puppeteer.launch({ headless: false, timeout:0, args: ['--no-sandbox', '--disable-setuid-sandbox'] })
 	const page = await browser.newPage()
 	const keyboard = page.keyboard
 
@@ -32,7 +35,7 @@ const worker = async ({
     await page.click("body > form > fieldset > div.bottom-box > div > button")
     console.log('Login done')
 
-    await page.waitForNavigation()
+    await page.waitForSelector('#allow')
 
     await page.click('#allow')
     console.log('Allow clicked')
