@@ -11,7 +11,16 @@ const worker = async ({
     api_key,
     redir_url,
 }) => {
+    console.log('===============================')
     console.log('Worker starting...')
+
+    console.log({
+        username,
+        password,
+        dob,
+        api_key,
+        redir_url,
+    })
 
     var api_key = encodeURIComponent(api_key)
     var redir_url = encodeURIComponent(redir_url)
