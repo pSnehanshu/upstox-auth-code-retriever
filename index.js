@@ -2,7 +2,6 @@ require('dotenv').config()
 
 const Express = require('express')
 const puppeteer = require('puppeteer')
-const Upstox = require('upstox')
 const url = require('url')
 
 const worker = async ({
@@ -14,9 +13,7 @@ const worker = async ({
 }) => {
     console.log('Worker starting...')
     
-    var upstox = new Upstox(api_key)
-    var login_url = upstox.getLoginUri(redir_url)
-
+    var login_url = `https://api.upstox.com/index/dialog/authorize?apiKey=${encodeURIComponent(api_key)}&redirect_uri=${encodeURIComponent(redir_url)}&response_type=code`
 
 	const browser = await puppeteer.launch({ headless: true, timeout:0, args: ['--no-sandbox', '--disable-setuid-sandbox'] })
 	const page = await browser.newPage()
