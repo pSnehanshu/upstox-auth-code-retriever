@@ -18,7 +18,7 @@ const worker = async ({
     
     var login_url = `https://api.upstox.com/index/dialog/authorize?apiKey=${api_key}&redirect_uri=${redir_url}&response_type=code`
 
-	const browser = await puppeteer.launch({ headless: false, timeout:0, args: ['--no-sandbox', '--disable-setuid-sandbox'] })
+	const browser = await puppeteer.launch({ headless: true, timeout:0, args: ['--no-sandbox', '--disable-setuid-sandbox'] })
 	const page = await browser.newPage()
 	const keyboard = page.keyboard
 
